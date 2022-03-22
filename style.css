@@ -1,0 +1,44 @@
+body {
+    font: 14px "Century Gothic", Futura, sans-serif;
+    margin: 20px;
+}
+h1 {
+  font-size: 80px;
+  text-align: center;
+}
+
+.container{
+  height: 400px;
+  position: relative;
+}
+
+#restart {
+ font-size: 30px;
+ 
+}
+#grid {
+	width: 600px;
+	height: 600px;
+	margin: 0 auto;
+  background-color: #34495e;
+  color: #fff;
+  border: 6px solid #2c3e50;
+  border-radius: 10px;
+	display: grid;
+	grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+}
+
+.box {
+  border: 6px solid #2c3e50;
+  border-radius: 2px;
+  font-family: Helvetica;
+  font-weight: bold;
+  font-size: 4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.stepCounter{
+  display: none;
+}
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project: TicTacToe</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+    <div class="container">      
+       <h1 id="heading">Tic Tac Toe</h1>              
+       <button id="restart">Restart</button>
+       <div class="state"></div>
+    </div>
+
+    <div id="grid">  
+        <button class="box"  data-x="0" data-y="0"></button>
+        <button class="box"  data-x="0" data-y="1"></button>
+        <button class="box"  data-x="0" data-y="2"></button>
+        <button class="box"  data-x="1" data-y="0"></button>
+        <button class="box"  data-x="1" data-y="1"></button>
+        <button class="box"  data-x="1" data-y="2"></button>          
+        <button class="box"  data-x="2" data-y="0"></button>
+        <button class="box"  data-x="2" data-y="1"></button>
+        <button class="box"  data-x="2" data-y="2"></button>
+    </div>
+    
+    <div class="stepCounter">0</div>
+    <script src="js/jquery-1.7.2.js"></script>
+    <script src = 'js/display.js'></script>
+</body>
+</html>
