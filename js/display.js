@@ -58,7 +58,7 @@ $(document).ready(function(){
         }else{
             player2Tokens.add(xy);
         }
-        // print the message of the winning message
+        // print the token on the box
         $(this).text(currentPlayer);
 
 
