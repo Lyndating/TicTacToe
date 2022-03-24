@@ -4,30 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Londrina+Shadow&family=Nunito:wght@900&family=Palette+Mosaic&display=swap" rel="stylesheet">
     <title>Project: TicTacToe</title>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 
-    <div class="container">      
-       <h1 id="heading">Tic Tac Toe</h1>              
-       <button id="restart">Restart</button>
-       <div class="state"></div>
+    <h1 id="heading">Tic Tac Toe</h1> 
+    <div class="sidebar sidebar-closed"> 
+        <img class = 'sidebar-btn sidebar-btn-closed'src ="/Users/tingluo/Projects/Project-tictactoe/img/sidebar.gif">
+        <div class = 'sidebar-title'>Select token</div>
+        <div class = 'sidebar-option'>
+            <button class = 'plSelect PlayerX'>X</button>
+            <button class = 'plSelect PlayerO'>O</button>
+        </div>
+        
+    </div> 
+    <div class="paper-wrapper popup">
+        <div class = 'icon'>
+            <img class="unicorn" src = "img/drawgame-fn.gif">
+        </div>
+        <div class ='title'>
+        </div>
+        <div class = 'description'>
+            <h2 class = 'state'></h2>
+        </div>  
+        <div class = 'restart-btn'> 
+            <button id ="restart-popup-btn">Restart</button>
+        </div>     
     </div>
-
-    <div id="grid">  
-        <button class="box"  data-x="0" data-y="0"></button>
-        <button class="box"  data-x="0" data-y="1"></button>
-        <button class="box"  data-x="0" data-y="2"></button>
-        <button class="box"  data-x="1" data-y="0"></button>
-        <button class="box"  data-x="1" data-y="1"></button>
-        <button class="box"  data-x="1" data-y="2"></button>          
-        <button class="box"  data-x="2" data-y="0"></button>
-        <button class="box"  data-x="2" data-y="1"></button>
-        <button class="box"  data-x="2" data-y="2"></button>
+   
+    <div class = 'display'>   
+        <div id="grid">  
+            <button class="box"  data-x="0" data-y="0"></button>
+            <button class="box"  data-x="0" data-y="1"></button>
+            <button class="box"  data-x="0" data-y="2"></button>
+            <button class="box"  data-x="1" data-y="0"></button>
+            <button class="box"  data-x="1" data-y="1"></button>
+            <button class="box"  data-x="1" data-y="2"></button>
+            <button class="box"  data-x="2" data-y="0"></button>
+            <button class="box"  data-x="2" data-y="1"></button>
+            <button class="box"  data-x="2" data-y="2"></button>
+        </div> 
+    </div>  
+    <div class="stepCounter stepCounter-closed">
+        <div class = 'P1-counter'>
+            <img class ='counter-img' src="img/player-1.png">
+            <div class=" counter-num count-X ">0</div>
+        </div>
+        <div class = "P2-counter">
+            <img class ='counter-img' src="img/player-2.png">
+            <div class=" counter-num count-O">0</div>
+        </div>
+        <img class = 'counterside-btn counterside-btn-closed'src="img/sidebar-1.gif" alt="pink-heart">
     </div>
-    
-    <div class="stepCounter">0</div>
     <script src="js/jquery-1.7.2.js"></script>
     <script src = 'js/display.js'></script>
 </body>
