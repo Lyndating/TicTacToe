@@ -6,6 +6,20 @@ $(document).ready(function(){
     let currentPlayer = player1;
 // state represents total 9 boxes on the grid.
     let state = [[" "," "," "],[" "," "," "],[" "," "," "]];
+    let player1Tokens = new Set();
+    let player2Tokens = new Set();
+
+//list all 8 winning conditions.    
+    const winConditions = [
+        new Set(['00','01','02']),
+        new Set(['10','11','12']),
+        new Set(['20','21','22']),
+        new Set(['00','10','20']),
+        new Set(['01','11','21']),
+        new Set(['02','12','22']),
+        new Set(['00','11','22']),
+        new Set(['02','11','20']),
+    ];
 
 // popup box will display only if the game is over.
     $('.popup').removeClass('active');
@@ -30,16 +44,23 @@ $(document).ready(function(){
 
 // P1 start the game, once the box clicked, the x-index and y-index of the clikced box will be recorded in the state array.
 
-// the token selection will be banned during the game.
+// for each box being clicked, the index will be written in the state array.
     $('.box').on('click', function() {
+        // the token selection will be banned during the game.
         $('.plSelect').off('click');
-        let x = $(this).data('x');
-        let y = $(this).data('y');
-        if (state[x][y] == " "){
-            state[x][y] = currentPlayer;
-            console.log(state[x][y]); //********** */
-            $(this).text(currentPlayer);
+        let x = ($(this).data('x'));
+        let y = ($(this).data('y'));
+        let xy = `${x}${y}`;
+        // get the x-index and y-index of the clicked box
+        //write it as a string into those two sets separately.
+        if (currentPlayer === player1) {
+            player1Tokens.add(xy);
+        }else{
+            player2Tokens.add(xy);
         }
+        // print the message of the winning message
+        $(this).text(currentPlayer);
+
 
 // if the winning Condition function is true, popup box will be active.
 // the sidebar will be avilable now.
@@ -79,75 +100,72 @@ $(document).ready(function(){
         }else{
             currentPlayer = player1;
         }
-        console.log('changed the player to',currentPlayer);
 
     });
 
+
+// winning condition check
     const playerWin = function () {
-        if (state[0][0] === currentPlayer){
-            if (state[0][1] === currentPlayer && state[0][2] === currentPlayer) {
-                return true;
-            }
-            if (state[1][1] === currentPlayer && state[2][2] === currentPlayer) {
-                return true;
-            }
-            if (state[1][0] === currentPlayer && state[2][0] === currentPlayer) {
-                return true;
-            }
-        };
-
-        if (state[1][1] === currentPlayer){
-            if (state[1][2] === currentPlayer && state[1][0] === currentPlayer) {
-                return true;
-            }
-            if (state[2][1] === currentPlayer &&  state[0][1] === currentPlayer) {
-                return true;
-            }
-            if (state[2][0] === currentPlayer &&  state[0][2] === currentPlayer) {
-                return true;
-            }
-        };
-
-        if (state[2][2] === currentPlayer){
-            if (state[0][2] === currentPlayer && state[1][2] === currentPlayer) {
-                return true;
-            }
-            if (state[2][0] === currentPlayer && state[2][1] === currentPlayer) {
+        if (currentPlayer === player1) {
+            currentSet = player1Tokens;
+        }else{
+            currentSet = player2Tokens;
+        }
+        console.log(currentSet);
+        console.log('pl',currentPlayer);
+        // iterate through the winConditions array
+        // compare each set with the currentplayer's set.
+        // if there are three elements in the new set returned from the interSection function, return true
+        for (let winningCondition of winConditions) {
+            console.log(winningCondition);
+            console.log(interSection(currentSet, winningCondition));
+            if(interSection(currentSet, winningCondition).size === 3) {
                 return true;
             }
         }
+        return false;
+
     };
-
+    // check draw condition, if more than 8 boxes are clicked, return true.
     const playerDraw = function () {
-        for (i = 0; i < 3; i++){
-            for (j = 0; j < 3; j++) {
-                if(state[i][j] === " "){
-                    return false;
-                }
-            }
-        }
+        let totalSize = player1Tokens.size + player2Tokens.size;
+        if (totalSize < 8){
+            return false;
+        };
         return true;
     };
-
+    
+    // define restart function.
+    // both two sets are clear (empty);
+    // all the clicked boxes are reset.
+    // sidebar is available.
     const restart = function() {
-
-        for (i = 0; i < 3; i++){
-            for (j = 0; j < 3; j++) {
-                state[i][j] = " ";
-            }
-        }
+        player1Tokens.clear();
+        player2Tokens.clear();
         $('.box').removeClass('clicked').text('');
         $('.plSelect').on('click',function(){
             plTokenSelect ($(this));
         });
         currentPlayer = player1;
     }
-
+    // set the condition to compare two sets
+    // return a new set with those values including in both of the two sets.
+    const interSection =function(setA, setB) {
+        let _intersection = new Set()
+        for (let elem of setB) {
+            if (setA.has(elem)) {
+                _intersection.add(elem)
+            }
+        }
+        return _intersection
+    }
+    //set function for the restart button in popupbox
+    //click the button, the popupbox will disappear and restart function will be called after 500ms.
     $("#restart-popup-btn").on('click', function() {
         $('.popup').removeClass('active');
         setTimeout(restart, 500);
     });
-
+    //click the button: counter-sidebar at the top right corner
     $('.counterside-btn').on('click',function(){
         $(this).toggleClass('counterside-btn-closed');
         $('.stepCounter').toggleClass('stepCounter-closed');
