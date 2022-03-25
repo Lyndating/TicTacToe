@@ -5,7 +5,7 @@ $(document).ready(function(){
     let player2 = $('.PlayerO').text();
     let currentPlayer = player1;
 // state represents total 9 boxes on the grid.
-    let state = [[" "," "," "],[" "," "," "],[" "," "," "]];
+    // let state = [[" "," "," "],[" "," "," "],[" "," "," "]];
     let player1Tokens = new Set();
     let player2Tokens = new Set();
 
@@ -66,7 +66,11 @@ $(document).ready(function(){
 // the sidebar will be avilable now.
 // player winning record will be updated at the bottom of the page.        
         if(playerWin()) {
-            $('.title').text(currentPlayer);
+            if(currentPlayer === player1){
+                $('.title').text($('.PlayerX').attr('id'));
+            }else{
+                $('.title').text($('.PlayerO').attr('id'));
+            }
             $('.unicorn').attr('src','img/playerwin-2.gif');
             $('.state').text(`wins the game!`);
             $('.popup').addClass('active');
@@ -171,7 +175,13 @@ $(document).ready(function(){
         $('.stepCounter').toggleClass('stepCounter-closed');
         console.log($('.stepCounter').css('transform'));
     });
-
+    let audio = new Audio('http://www.sousound.com/music/healing/healing_01.mp3');
+    $('.music-on').on('click',function(){
+        audio.play();
+    });
+    $('.music-off').on('click',function(){
+        audio.pause();
+    });
 });
 
 
